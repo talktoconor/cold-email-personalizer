@@ -23,6 +23,7 @@ Rules:
 - Never use: "I hope this email finds you well", "I came across your profile", "I'd love to", "just following up", "synergy", "leverage", "circle back"
 - Write like a smart human, not a marketing bot
 - Match the tone to the prospect's likely communication style (exec = direct, IC = casual, technical = specific)
+- If sender context includes their company URL, LinkedIn, or uploaded documents, use those details to make the emails feel like they come from a real person at a real company — reference specific capabilities, case studies, or credibility signals from the provided materials
 
 Output format — respond with ONLY valid JSON, no markdown fences:
 {
@@ -47,7 +48,8 @@ Output format — respond with ONLY valid JSON, no markdown fences:
 
 export async function POST(request: Request) {
   try {
-    const { prospectInfo, senderContext } = await request.json();
+    const { prospectInfo, senderContext, companyUrl, linkedinUrl, pdfContext, pdfFileName } =
+      await request.json();
 
     if (!prospectInfo?.trim()) {
       return Response.json(
@@ -56,19 +58,59 @@ export async function POST(request: Request) {
       );
     }
 
-    const userPrompt = `## Prospect Information
+    // Build enriched sender context
+    const senderParts: string[] = [];
+    if (senderContext?.trim()) {
+      senderParts.push(senderContext.trim());
+    }
+    if (companyUrl?.trim()) {
+      senderParts.push(`Sender's company website: ${companyUrl.trim()}`);
+    }
+    if (linkedinUrl?.trim()) {
+      senderParts.push(`Sender's LinkedIn: ${linkedinUrl.trim()}`);
+    }
+
+    const enrichedSender =
+      senderParts.length > 0
+        ? senderParts.join("\n\n")
+        : "Not provided — write emails that are prospect-focused and leave the value prop vague enough to spark curiosity.";
+
+    // Build the message content — if PDF is provided, use multimodal
+    const contentParts: Anthropic.Messages.ContentBlockParam[] = [];
+
+    // Add PDF as a document if provided
+    if (pdfContext) {
+      contentParts.push({
+        type: "document",
+        source: {
+          type: "base64",
+          media_type: "application/pdf",
+          data: pdfContext,
+        },
+      });
+      contentParts.push({
+        type: "text",
+        text: `The above PDF document${pdfFileName ? ` ("${pdfFileName}")` : ""} contains additional context about the sender's company — use relevant details from it (case studies, product features, metrics, differentiators) to make the emails more specific and credible.\n\n`,
+      });
+    }
+
+    // Add the main prompt
+    contentParts.push({
+      type: "text",
+      text: `## Prospect Information
 ${prospectInfo}
 
 ## Sender's Product / Value Prop
-${senderContext || "Not provided — write emails that are prospect-focused and leave the value prop vague enough to spark curiosity."}
+${enrichedSender}
 
-Generate 3 personalized cold email variants.`;
+Generate 3 personalized cold email variants.`,
+    });
 
     const message = await client.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 1500,
       system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userPrompt }],
+      messages: [{ role: "user", content: contentParts }],
     });
 
     const text =

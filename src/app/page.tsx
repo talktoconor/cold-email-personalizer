@@ -68,6 +68,41 @@ export default function LandingPage() {
         <p className="mt-6 text-sm text-muted">5 free emails/day. No credit card required.</p>
       </section>
 
+      {/* Logo Marquee */}
+      <section className="py-6 border-y border-border bg-surface overflow-hidden">
+        <p className="text-xs font-medium text-center uppercase tracking-[0.2em] text-slate-400 mb-5">
+          Built by reps with experience from
+        </p>
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-surface to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-surface to-transparent z-10" />
+          <div className="flex animate-marquee whitespace-nowrap">
+            {[...Array(2)].map((_, setIndex) => (
+              <div key={setIndex} className="flex shrink-0 items-center gap-4 px-2">
+                {[
+                  { src: "/logos/blackrock.png", alt: "BlackRock" },
+                  { src: "/logos/carta.png", alt: "Carta" },
+                  { src: "/logos/nike.png", alt: "Nike" },
+                  { src: "/logos/kaiser.png", alt: "Kaiser Permanente" },
+                  { src: "/logos/focus.png", alt: "Focus" },
+                ].map((logo) => (
+                  <div
+                    key={`${setIndex}-${logo.alt}`}
+                    className="flex items-center justify-center px-6 py-3 rounded-xl bg-white border border-border/60 shadow-sm"
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-7 w-auto grayscale opacity-40"
+                    />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section id="how-it-works" className="py-20 px-6 bg-surface">
         <div className="max-w-5xl mx-auto">
@@ -168,8 +203,9 @@ export default function LandingPage() {
                 {[
                   "Unlimited emails",
                   "3 variants per generation",
-                  "All email styles",
-                  "Tone & length controls",
+                  "Gmail integration — send directly",
+                  "LinkedIn integration — auto-pull profiles",
+                  "PDF context upload",
                   "Priority generation",
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm">
