@@ -15,9 +15,9 @@ export default function LandingPage() {
       <nav className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
-            <span className="text-white font-bold text-sm">CC</span>
+            <span className="text-white font-bold text-sm">SF</span>
           </div>
-          <span className="font-semibold text-lg tracking-tight">ColdCraft</span>
+          <span className="font-semibold text-lg tracking-tight">SpearFisher</span>
         </div>
         <div className="flex items-center gap-4">
           <Link href="#pricing" className="text-sm text-muted hover:text-foreground transition-colors">
@@ -73,7 +73,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Three steps. Three emails. More replies.</h2>
           <p className="text-muted text-center mb-14 max-w-xl mx-auto">
-            No more staring at a blank compose window. ColdCraft does the research and writing so you can focus on selling.
+            No more staring at a blank compose window. SpearFisher does the research and writing so you can focus on selling.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -194,9 +194,9 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-md bg-indigo-500 flex items-center justify-center">
-              <span className="text-white font-bold text-xs">CC</span>
+              <span className="text-white font-bold text-xs">SF</span>
             </div>
-            <span className="text-sm text-muted">ColdCraft</span>
+            <span className="text-sm text-muted">SpearFisher</span>
           </div>
           <p className="text-sm text-muted">Built for reps who want replies, not opens.</p>
         </div>

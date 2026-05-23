@@ -117,9 +117,9 @@ export default function AppPage() {
       <nav className="flex items-center justify-between px-6 py-4 border-b border-border max-w-6xl mx-auto w-full">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
-            <span className="text-white font-bold text-sm">CC</span>
+            <span className="text-white font-bold text-sm">SF</span>
           </div>
-          <span className="font-semibold text-lg tracking-tight">ColdCraft</span>
+          <span className="font-semibold text-lg tracking-tight">SpearFisher</span>
         </Link>
         <div className="text-sm text-muted">5 free / day</div>
       </nav>

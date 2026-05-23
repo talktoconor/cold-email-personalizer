@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ColdCraft — AI Cold Email Personalizer for Sales Reps",
+  title: "SpearFisher — AI Cold Email Personalizer for Sales Reps",
   description:
     "Paste a LinkedIn profile or company info. Get 3 personalized cold emails in seconds. Built by sales reps, for sales reps.",
 };
