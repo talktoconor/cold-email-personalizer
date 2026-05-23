@@ -36,7 +36,7 @@ export default function LandingPage() {
       <section className="flex-1 flex flex-col items-center justify-center px-6 pt-20 pb-16 text-center max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-sm font-medium mb-6">
           <span className="w-2 h-2 rounded-full bg-indigo-500" />
-          Built by SDRs who&apos;ve sent 100k+ cold emails
+          Built by AEs and SDRs who&apos;ve sourced and closed $100M+ in ACV
         </div>
         <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
           Stop writing generic
