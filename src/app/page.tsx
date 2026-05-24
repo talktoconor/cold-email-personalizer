@@ -198,29 +198,30 @@ export default function LandingPage() {
       {/* ============ TRUST BAR ============ */}
       <section className="py-8 border-y border-border overflow-hidden">
         <p className="text-xs font-medium text-center uppercase tracking-[0.2em] text-muted mb-6">
-          Works with your sales stack
+          Built by reps with experience from
         </p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex animate-marquee whitespace-nowrap">
             {[...Array(2)].map((_, setIndex) => (
-              <div key={setIndex} className="flex shrink-0 items-center gap-5 px-3">
+              <div key={setIndex} className="flex shrink-0 items-center gap-4 px-2">
                 {[
-                  "Salesforce",
-                  "HubSpot",
-                  "Outreach",
-                  "Gong",
-                  "Apollo",
-                  "Salesloft",
-                  "ZoomInfo",
-                  "LinkedIn",
-                ].map((name) => (
+                  { src: "/logos/blackrock.png", alt: "BlackRock" },
+                  { src: "/logos/carta.png", alt: "Carta" },
+                  { src: "/logos/nike.png", alt: "Nike" },
+                  { src: "/logos/kaiser.png", alt: "Kaiser Permanente" },
+                  { src: "/logos/focus.png", alt: "Focus" },
+                ].map((logo) => (
                   <div
-                    key={`${setIndex}-${name}`}
+                    key={`${setIndex}-${logo.alt}`}
                     className="flex items-center justify-center px-6 py-3 rounded-xl bg-surface border border-border/60"
                   >
-                    <span className="text-sm font-semibold text-muted/50 tracking-wide">{name}</span>
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-7 w-auto grayscale opacity-50 invert"
+                    />
                   </div>
                 ))}
               </div>
