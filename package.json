@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:content": "npx tsx scripts/generate-content.ts",
+    "generate:blog": "npx tsx scripts/generate-blog.ts",
+    "generate:all": "npx tsx scripts/generate-content.ts --all && npx tsx scripts/generate-blog.ts --all"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.98.0",
@@ -22,6 +25,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
+    "tsx": "^4.22.3",
     "typescript": "^5"
   }
 }
