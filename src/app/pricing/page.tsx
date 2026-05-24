@@ -3,12 +3,13 @@ import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/json-ld";
+import { PricingButton } from "@/components/pricing-button";
 import { productSchema, breadcrumbSchema, faqSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "SpearFisher pricing plans. Free tier with 5 emails/month. Pro at $49/mo for 200 emails. Team at $99/seat. Agency at $299/mo with white-label and API.",
+    "SpearFisher pricing plans. Free tier with 5 emails/month. Pro at $49/mo for 200 emails. Team at $99/seat. Agency at $299/mo.",
   alternates: { canonical: "https://spearfisher.app/pricing" },
   openGraph: {
     title: "SpearFisher Pricing — Plans for Every Sales Team",
@@ -51,18 +52,19 @@ const pricingFaqs = [
   {
     question: "Can I cancel anytime?",
     answer:
-      "Absolutely. No contracts, no cancellation fees. Cancel from your dashboard and you'll retain access through the end of your billing period.",
+      "Absolutely. No contracts, no cancellation fees. Contact us to manage your subscription and you'll retain access through the end of your billing period.",
   },
   {
-    question: "What's included in the 14-day Pro trial?",
+    question: "What's included in the Pro plan?",
     answer:
-      "Full access to all Pro features: 200 emails/month, advanced personalization with company news, tech stack detection, hiring signals, and funding data. No credit card required.",
+      "Full access to all Pro features: 200 emails/month, advanced personalization with company news, tech stack detection, hiring signals, and funding data.",
   },
 ];
 
 const plans = [
   {
     name: "Free",
+    planId: "free",
     price: "$0",
     period: "/mo",
     description: "Try it out",
@@ -73,11 +75,11 @@ const plans = [
       "Copy to clipboard",
     ],
     cta: "Get Started Free",
-    ctaHref: "/app",
     highlighted: false,
   },
   {
     name: "Pro",
+    planId: "pro",
     price: "$49",
     period: "/mo",
     description: "For serious SDRs",
@@ -90,15 +92,14 @@ const plans = [
       "Hiring signal analysis",
       "No watermark",
       "Email templates library",
-      "Performance analytics",
     ],
-    cta: "Start 14-Day Free Trial",
-    ctaHref: "/app",
+    cta: "Get Started",
     highlighted: true,
     badge: "Most Popular",
   },
   {
     name: "Team",
+    planId: "team",
     price: "$99",
     period: "/seat/mo",
     description: "For sales teams",
@@ -108,17 +109,14 @@ const plans = [
       "Everything in Pro",
       "Team workspace",
       "Shared templates",
-      "CRM integration (CSV)",
-      "A/B subject line testing",
-      "Analytics dashboard",
       "Priority support",
     ],
-    cta: "Start Team Trial",
-    ctaHref: "/app",
+    cta: "Get Started",
     highlighted: false,
   },
   {
     name: "Agency",
+    planId: "agency",
     price: "$299",
     period: "/mo",
     description: "For agencies & power users",
@@ -126,15 +124,11 @@ const plans = [
     features: [
       "5 seats included",
       "Everything in Team",
-      "White-label option",
       "Client workspaces",
       "Bulk CSV personalization",
-      "API access",
       "Dedicated support",
-      "Custom integrations",
     ],
     cta: "Contact Sales",
-    ctaHref: "/app",
     highlighted: false,
   },
 ];
@@ -205,16 +199,12 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href={plan.ctaHref}
-                  className={`block w-full text-center py-2.5 rounded-lg font-medium transition-all ${
-                    plan.highlighted
-                      ? "btn-primary text-white"
-                      : "border border-border hover:border-border-light hover:bg-surface-light text-foreground"
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
+                <PricingButton
+                  planName={plan.name}
+                  planId={plan.planId}
+                  ctaText={plan.cta}
+                  highlighted={plan.highlighted}
+                />
               </div>
             ))}
           </div>

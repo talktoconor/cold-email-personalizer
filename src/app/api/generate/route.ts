@@ -1,4 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { getAuthUser } from "@/lib/auth-helper";
+import { checkUsageLimit, incrementUsage } from "@/lib/usage";
+import {
+  rateLimit,
+  getRateLimitForPlan,
+  checkDemoLimit,
+} from "@/lib/rate-limit";
 
 const client = new Anthropic();
 
@@ -46,15 +53,145 @@ Output format — respond with ONLY valid JSON, no markdown fences:
   ]
 }`;
 
+/**
+ * Extract client IP from request headers.
+ */
+function getClientIp(request: Request): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    request.headers.get("x-real-ip") ??
+    "unknown"
+  );
+}
+
+/**
+ * Create a Response with rate limit headers attached.
+ */
+function withRateLimitHeaders(
+  body: unknown,
+  status: number,
+  rlLimit: number,
+  rlRemaining: number,
+  rlReset: number,
+): Response {
+  return Response.json(body, {
+    status,
+    headers: {
+      "X-RateLimit-Limit": String(rlLimit),
+      "X-RateLimit-Remaining": String(rlRemaining),
+      "X-RateLimit-Reset": String(Math.ceil(rlReset / 1000)),
+    },
+  });
+}
+
 export async function POST(request: Request) {
   try {
-    const { prospectInfo, senderContext, companyUrl, linkedinUrl, pdfContext, pdfFileName } =
-      await request.json();
+    // --- Auth check ---
+    const authUser = await getAuthUser();
+
+    let rlLimit: number;
+    let rlRemaining: number;
+    let rlReset: number;
+
+    if (authUser) {
+      // --- Authenticated user flow ---
+
+      // Rate limit by user ID
+      const planRl = getRateLimitForPlan(authUser.plan);
+      const rl = rateLimit(
+        `user:${authUser.id}`,
+        planRl.limit,
+        planRl.windowMs,
+      );
+      rlLimit = planRl.limit;
+      rlRemaining = rl.remaining;
+      rlReset = rl.resetAt;
+
+      if (!rl.allowed) {
+        return withRateLimitHeaders(
+          { error: "Rate limit exceeded. Please wait before trying again." },
+          429,
+          rlLimit,
+          rlRemaining,
+          rlReset,
+        );
+      }
+
+      // Check monthly usage limit
+      try {
+        const usageCheck = await checkUsageLimit(authUser.id);
+        if (!usageCheck.allowed) {
+          return withRateLimitHeaders(
+            {
+              error: "Monthly limit reached",
+              used: usageCheck.used,
+              limit: usageCheck.limit,
+              plan: usageCheck.plan,
+            },
+            429,
+            rlLimit,
+            rlRemaining,
+            rlReset,
+          );
+        }
+      } catch {
+        // DB unavailable — allow the request to proceed
+      }
+    } else {
+      // --- Unauthenticated (demo) flow ---
+      const ip = getClientIp(request);
+
+      // Per-minute rate limit for anonymous
+      const anonRl = getRateLimitForPlan("anonymous");
+      const rl = rateLimit(`anon:${ip}`, anonRl.limit, anonRl.windowMs);
+      rlLimit = anonRl.limit;
+      rlRemaining = rl.remaining;
+      rlReset = rl.resetAt;
+
+      if (!rl.allowed) {
+        return withRateLimitHeaders(
+          { error: "Rate limit exceeded. Please wait before trying again." },
+          429,
+          rlLimit,
+          rlRemaining,
+          rlReset,
+        );
+      }
+
+      // Daily demo limit per IP
+      const demo = checkDemoLimit(ip);
+      if (!demo.allowed) {
+        return withRateLimitHeaders(
+          {
+            error:
+              "Demo limit reached. Sign up for a free account to get more generations.",
+            remaining: 0,
+          },
+          429,
+          rlLimit,
+          0,
+          demo.resetAt,
+        );
+      }
+    }
+
+    // --- Parse and validate request body ---
+    const {
+      prospectInfo,
+      senderContext,
+      companyUrl,
+      linkedinUrl,
+      pdfContext,
+      pdfFileName,
+    } = await request.json();
 
     if (!prospectInfo?.trim()) {
-      return Response.json(
+      return withRateLimitHeaders(
         { error: "Prospect info is required" },
-        { status: 400 }
+        400,
+        rlLimit,
+        rlRemaining,
+        rlReset,
       );
     }
 
@@ -118,7 +255,27 @@ Generate 3 personalized cold email variants.`,
 
     const parsed = JSON.parse(text);
 
-    return Response.json(parsed);
+    // --- Post-generation: record usage for authenticated users ---
+    if (authUser) {
+      try {
+        await incrementUsage(authUser.id, {
+          prospectInfo,
+          senderContext: senderContext ?? null,
+          companyUrl: companyUrl ?? null,
+          linkedinUrl: linkedinUrl ?? null,
+          pdfFilename: pdfFileName ?? null,
+          emailsJson: parsed,
+          model: "claude-sonnet-4-6",
+          tokensUsed:
+            (message.usage?.input_tokens ?? 0) +
+            (message.usage?.output_tokens ?? 0),
+        });
+      } catch {
+        // DB unavailable — generation succeeded, just skip recording
+      }
+    }
+
+    return withRateLimitHeaders(parsed, 200, rlLimit, rlRemaining, rlReset);
   } catch (error) {
     console.error("Generation error:", error);
     const msg =

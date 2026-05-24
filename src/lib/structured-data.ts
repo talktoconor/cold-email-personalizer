@@ -46,15 +46,10 @@ export function softwareApplicationSchema() {
         "@type": "Offer",
         price: "299",
         priceCurrency: "USD",
-        description: "Agency - 5 seats, white-label, API access",
+        description: "Agency - 5 seats, client workspaces, bulk CSV",
         billingDuration: "P1M",
       },
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "127",
-    },
   };
 }
 
@@ -65,7 +60,7 @@ export function productSchema() {
     name: `${SITE_NAME} - AI Cold Email Personalization`,
     url: `${BASE_URL}/pricing`,
     description:
-      "AI-powered cold email personalization tool. Researches prospects and generates personalized emails that get 3x more replies.",
+      "AI-powered cold email personalization tool. Researches prospects and generates personalized emails that stand out.",
     brand: { "@type": "Brand", name: SITE_NAME },
     offers: [
       {
@@ -98,7 +93,7 @@ export function productSchema() {
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
         priceValidUntil: "2027-12-31",
-        description: "Agency - 5 seats, white-label",
+        description: "Agency - 5 seats, client workspaces",
       },
     ],
   };

@@ -52,39 +52,12 @@ const homeFaqs = [
   {
     question: "What reply rate improvement can I expect?",
     answer:
-      "Sales teams using SpearFisher report 2-3x higher reply rates compared to generic cold emails. Personalized emails that reference specific prospect details consistently outperform templates.",
+      "Personalized emails that reference specific prospect details consistently outperform generic templates. SpearFisher helps you craft emails that show genuine research, which prospects notice.",
   },
   {
     question: "How is SpearFisher different from email templates?",
     answer:
       "Templates are static — every prospect gets the same email with a name swapped in. SpearFisher researches each prospect individually and generates unique emails that reference their specific company, role, recent news, and pain points.",
-  },
-];
-
-const testimonials = [
-  {
-    quote: "SpearFisher cut my email writing time from 20 minutes to 30 seconds per prospect. My reply rate went from 3% to 11%.",
-    name: "Marcus Rodriguez",
-    title: "Senior SDR, Series B SaaS",
-    avatar: "MR",
-  },
-  {
-    quote: "We rolled this out to our 12-person BDR team. Pipeline generation jumped 40% in the first month. The personalization quality is unreal.",
-    name: "Jennifer Park",
-    title: "VP of Sales, Fintech",
-    avatar: "JP",
-  },
-  {
-    quote: "I used to dread prospecting. Now I actually look forward to it. The curiosity hook variants are insanely good at getting responses.",
-    name: "David Okafor",
-    title: "Account Executive, Enterprise",
-    avatar: "DO",
-  },
-  {
-    quote: "Replaced three email tools with SpearFisher. Better output, lower cost, and my team actually uses it because it is so fast.",
-    name: "Sarah Lin",
-    title: "Head of Growth, Agency",
-    avatar: "SL",
   },
 ];
 
@@ -313,20 +286,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ SOCIAL PROOF STATS ============ */}
+      {/* ============ CAPABILITY STATS ============ */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-            SDRs are getting <span className="gradient-text">replies</span>
+            What you get with <span className="gradient-text">SpearFisher</span>
           </h2>
           <p className="text-muted text-center mb-14 max-w-lg mx-auto">
-            Real numbers from teams using AI-powered personalization.
+            AI-powered personalization that does the hard work for you.
           </p>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { stat: "3.2x", label: "Higher reply rates", desc: "vs. generic templates" },
-              { stat: "47s", label: "Avg. time per email", desc: "down from 18 minutes" },
-              { stat: "2hr+", label: "Saved per day", desc: "per sales rep" },
+              { stat: "3", label: "Personalized angles", desc: "per prospect, every time" },
+              { stat: "<60s", label: "Per email", desc: "from paste to send-ready" },
+              { stat: "Any", label: "Prospect info works", desc: "LinkedIn, bio, company site" },
             ].map((item) => (
               <div key={item.label} className="gradient-border p-8 text-center card-glow">
                 <div className="text-4xl sm:text-5xl font-bold gradient-text mb-2">{item.stat}</div>
@@ -356,7 +329,7 @@ export default function LandingPage() {
                 <span className="text-xs font-semibold text-red-400 bg-red-500/10 px-2.5 py-1 rounded-full">
                   Generic Template
                 </span>
-                <span className="text-xs text-red-400/70">&sim;2% reply rate</span>
+                <span className="text-xs text-red-400/70">Low engagement</span>
               </div>
               <p className="text-sm font-medium mb-2 text-red-300">
                 Subject: quick question
@@ -378,7 +351,7 @@ export default function LandingPage() {
                 <span className="text-xs font-semibold text-green-400 bg-green-500/10 px-2.5 py-1 rounded-full">
                   SpearFisher Personalized
                 </span>
-                <span className="text-xs text-green-400/70">&sim;7% reply rate</span>
+                <span className="text-xs text-green-400/70">Stands out in inbox</span>
               </div>
               <p className="text-sm font-medium mb-2 text-green-300">
                 Subject: saw your 5 new sdr hires
@@ -395,41 +368,6 @@ export default function LandingPage() {
                 look?
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ TESTIMONIALS ============ */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Loved by <span className="gradient-text">sales teams</span>
-            </h2>
-            <p className="text-muted max-w-lg mx-auto">
-              Hear from the SDRs, AEs, and founders who are sending better emails.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.name} className="gradient-border p-6 card-glow">
-                <div className="flex gap-0.5 mb-4">
-                  {[1, 2, 3, 4, 5].map((n) => <StarIcon key={n} />)}
-                </div>
-                <p className="text-sm text-slate-300 leading-relaxed mb-5">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
-                    {t.avatar}
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-foreground">{t.name}</div>
-                    <div className="text-xs text-muted">{t.title}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -538,8 +476,8 @@ export default function LandingPage() {
             <span className="gradient-text">get replies</span>?
           </h2>
           <p className="text-muted mb-8 max-w-lg mx-auto">
-            Join 2,500+ sales teams using AI-powered personalization. Free to
-            start — no credit card required.
+            Built for outbound sales teams. Free to start — no credit card
+            required.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

@@ -21,39 +21,39 @@ const VARIANTS: Record<
   "cold-email": {
     headline: "AI-Powered Cold Email Personalization",
     subheadline:
-      "Stop sending generic cold emails. AI researches your prospects and writes personalized emails that get 3x more replies. Free to try.",
+      "Stop sending generic cold emails. AI researches your prospects and writes personalized emails that stand out. Free to try.",
     stats: [
-      { value: "3.2x", label: "higher reply rates" },
-      { value: "47s", label: "per email" },
-      { value: "2hr+", label: "saved daily" },
+      { value: "3", label: "personalized angles" },
+      { value: "<60s", label: "per email" },
+      { value: "Any", label: "prospect info works" },
     ],
     cta: "Start Personalizing Free",
     metaTitle: "AI Cold Email Personalization Tool | SpearFisher",
     metaDescription:
-      "AI-powered cold email personalization. Paste prospect info, get personalized emails in seconds. 3x higher reply rates. Free to start.",
+      "AI-powered cold email personalization. Paste prospect info, get personalized emails in seconds. Free to start.",
   },
   sdr: {
-    headline: "SDRs: 3x Your Reply Rate with AI",
+    headline: "SDRs: Stand Out with AI Personalization",
     subheadline:
       "Your prospects get 100+ cold emails a week. Stand out with AI-powered personalization that references their specific company, role, and pain points.",
     stats: [
-      { value: "3.2x", label: "reply rate increase" },
+      { value: "3", label: "unique angles per prospect" },
       { value: "200+", label: "emails/month on Pro" },
-      { value: "6min→47s", label: "per personalized email" },
+      { value: "<60s", label: "per personalized email" },
     ],
     cta: "Try Free — No Credit Card",
     metaTitle: "AI Cold Email Tool for SDRs | SpearFisher",
     metaDescription:
-      "SDRs: personalize cold emails in seconds instead of minutes. AI researches prospects and generates emails that get replies. Free tier available.",
+      "SDRs: personalize cold emails in seconds instead of minutes. AI researches prospects and generates personalized emails. Free tier available.",
   },
   recruiter: {
     headline: "Recruiter Cold Emails That Get Responses",
     subheadline:
       "Top talent ignores generic InMails. Use AI to personalize every outreach — reference their projects, skills, and career trajectory.",
     stats: [
-      { value: "2.8x", label: "response rate" },
-      { value: "< 1min", label: "per outreach" },
-      { value: "85%", label: "time saved" },
+      { value: "3", label: "personalized variants" },
+      { value: "<1min", label: "per outreach" },
+      { value: "Any", label: "candidate info works" },
     ],
     cta: "Start Personalizing Free",
     metaTitle: "AI Recruiter Email Personalization | SpearFisher",
@@ -61,32 +61,32 @@ const VARIANTS: Record<
       "Write personalized recruiter cold emails in seconds. AI analyzes candidate profiles and generates outreach that gets responses.",
   },
   agency: {
-    headline: "Agency Cold Email at Scale — White Label",
+    headline: "Agency Cold Email at Scale",
     subheadline:
-      "Personalize cold emails for every client, every prospect. White-label the output. Bulk CSV upload. API access. Built for agency workflows.",
+      "Personalize cold emails for every client, every prospect. Client workspaces. Bulk CSV upload. Built for agency workflows.",
     stats: [
       { value: "5 seats", label: "included" },
       { value: "Unlimited", label: "emails" },
-      { value: "API + CSV", label: "bulk workflows" },
+      { value: "CSV", label: "bulk workflows" },
     ],
-    cta: "Start Agency Trial",
-    metaTitle: "White-Label Cold Email Personalization for Agencies | SpearFisher",
+    cta: "Get Started",
+    metaTitle: "Cold Email Personalization for Agencies | SpearFisher",
     metaDescription:
-      "Agency-grade cold email personalization. White-label, bulk CSV processing, API access, client workspaces. Built for agency scale.",
+      "Agency-grade cold email personalization. Bulk CSV processing, client workspaces, dedicated support. Built for agency scale.",
   },
   "sales-team": {
     headline: "Give Your Sales Team Superpowers",
     subheadline:
-      "Every rep sends personalized emails in seconds. Shared templates, analytics dashboard, CRM integration. Scale quality outreach across the team.",
+      "Every rep sends personalized emails in seconds. Shared templates, team workspace, priority support. Scale quality outreach across the team.",
     stats: [
-      { value: "3.2x", label: "reply rates" },
+      { value: "3", label: "angles per prospect" },
       { value: "Unlimited", label: "emails per seat" },
-      { value: "22%", label: "more meetings booked" },
+      { value: "<60s", label: "per personalized email" },
     ],
-    cta: "Start Team Trial",
+    cta: "Get Started Free",
     metaTitle: "AI Cold Email for Sales Teams | SpearFisher",
     metaDescription:
-      "Equip your sales team with AI-powered email personalization. Shared templates, analytics, CRM integration. Free trial.",
+      "Equip your sales team with AI-powered email personalization. Shared templates, team workspace, priority support. Get started free.",
   },
 };
 
@@ -166,13 +166,13 @@ export default async function LandingPage({ params }: Props) {
       <section className="py-12 px-6 bg-surface border-t border-border">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-muted text-sm mb-6">
-            Trusted by 2,500+ sales teams
+            Built for outbound sales teams
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6">
             {[
-              "Used by SDRs at YC-backed startups",
-              "Featured on Product Hunt",
-              "4.8/5 average rating",
+              "3 personalized angles per prospect",
+              "Works with any prospect info",
+              "Free tier available",
             ].map((proof) => (
               <span
                 key={proof}
