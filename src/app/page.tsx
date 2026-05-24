@@ -198,30 +198,29 @@ export default function LandingPage() {
       {/* ============ TRUST BAR ============ */}
       <section className="py-8 border-y border-border overflow-hidden">
         <p className="text-xs font-medium text-center uppercase tracking-[0.2em] text-muted mb-6">
-          Built by reps with experience from
+          Works with your sales stack
         </p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex animate-marquee whitespace-nowrap">
             {[...Array(2)].map((_, setIndex) => (
-              <div key={setIndex} className="flex shrink-0 items-center gap-4 px-2">
+              <div key={setIndex} className="flex shrink-0 items-center gap-5 px-3">
                 {[
-                  { src: "/logos/blackrock.png", alt: "BlackRock" },
-                  { src: "/logos/carta.png", alt: "Carta" },
-                  { src: "/logos/nike.png", alt: "Nike" },
-                  { src: "/logos/kaiser.png", alt: "Kaiser Permanente" },
-                  { src: "/logos/focus.png", alt: "Focus" },
-                ].map((logo) => (
+                  "Salesforce",
+                  "HubSpot",
+                  "Outreach",
+                  "Gong",
+                  "Apollo",
+                  "Salesloft",
+                  "ZoomInfo",
+                  "LinkedIn",
+                ].map((name) => (
                   <div
-                    key={`${setIndex}-${logo.alt}`}
+                    key={`${setIndex}-${name}`}
                     className="flex items-center justify-center px-6 py-3 rounded-xl bg-surface border border-border/60"
                   >
-                    <img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="h-7 w-auto brightness-0 invert opacity-30"
-                    />
+                    <span className="text-sm font-semibold text-muted/50 tracking-wide">{name}</span>
                   </div>
                 ))}
               </div>
@@ -230,26 +229,23 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ RATINGS BADGES ============ */}
+      {/* ============ VALUE PROPS ============ */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { platform: "G2", rating: "4.8", reviews: "127", label: "High Performer" },
-              { platform: "Capterra", rating: "4.9", reviews: "89", label: "Best Value" },
-              { platform: "Product Hunt", rating: "#3", reviews: "412 upvotes", label: "Product of the Day" },
-            ].map((badge) => (
-              <div key={badge.platform} className="gradient-border p-5 text-center">
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">
-                  {badge.platform}
+              { icon: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z", title: "Instant Research", desc: "AI analyzes prospects in seconds — company stage, tech stack, pain points" },
+              { icon: "M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z", title: "3 Persuasion Angles", desc: "Direct value, curiosity hook, and social proof — pick what fits" },
+              { icon: "M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75", title: "Copy & Send", desc: "One click to copy. Paste into your sequencer and start booking meetings" },
+            ].map((item) => (
+              <div key={item.title} className="gradient-border p-6 text-center card-glow">
+                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                  </svg>
                 </div>
-                <div className="flex justify-center gap-0.5 mb-2">
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <StarIcon key={n} filled={n <= 4 || badge.rating !== "#3"} />
-                  ))}
-                </div>
-                <div className="text-2xl font-bold text-foreground mb-1">{badge.rating}</div>
-                <div className="text-xs text-muted">{badge.reviews} &middot; {badge.label}</div>
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted">{item.desc}</p>
               </div>
             ))}
           </div>
