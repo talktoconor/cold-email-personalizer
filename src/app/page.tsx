@@ -161,7 +161,7 @@ export default function LandingPage() {
                 {/* Mock email output */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full">Direct Value</span>
+                    <span className="text-xs font-semibold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full">Deep Research</span>
                     <div className="flex gap-0.5">
                       {[1, 2, 3, 4, 5].map((n) => <StarIcon key={n} />)}
                     </div>
@@ -169,13 +169,14 @@ export default function LandingPage() {
 
                   <div className="bg-surface rounded-lg p-4 border border-border">
                     <p className="text-xs text-muted mb-1">Subject:</p>
-                    <p className="text-sm font-medium text-foreground mb-3">saw your 5 new sdr hires</p>
+                    <p className="text-sm font-medium text-foreground mb-3">re: your ML eng post on Hacker News</p>
                     <p className="text-xs text-muted mb-1">Body:</p>
                     <p className="text-sm text-slate-300 leading-relaxed">
                       Hey Sarah,<br /><br />
-                      Noticed Acme just brought on 5 SDRs — scaling outbound post-Series B is the right move. The tricky part: ramping them before your board expects pipeline.
+                      Your post about building Acme&apos;s recommendation engine from scratch got mass upvoted for a reason. Most teams would have fine-tuned an off-the-shelf model and called it done. You rebuilt the entire embedding pipeline instead.<br /><br />
+                      We just helped a similar-stage team (post-Series B, 40 engineers) cut their ML hiring cycle from 62 days to 19. Happy to share exactly what they changed.
                       <br /><br />
-                      <span className="text-indigo-400">Worth a quick look?</span>
+                      <span className="text-indigo-400">Want me to send over the breakdown?</span>
                     </p>
                   </div>
 
